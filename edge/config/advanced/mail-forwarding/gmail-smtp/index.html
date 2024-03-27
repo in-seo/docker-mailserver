@@ -2059,17 +2059,17 @@
 <p class="admonition-title">Configuration via ENV</p>
 <p><a href="../relay-hosts/">Configure a relay host in DMS</a> to forward all your mail through:</p>
 <ul>
-<li><code>RELAY_HOST</code> should match your <a href="https://support.google.com/a/answer/176600">SMTP Server Endpoint</a>.</li>
+<li><code>RELAY_HOST</code> should be either <code>smtp.gmail.com</code> (<em>for a personal GMAIL account</em>) or <code>smtp-relay.gmail.com</code> (<em>when using Google Workspace</em>). For more information, view <a href="https://support.google.com/a/answer/176600">these docs for the two supported SMTP endpoints</a>.</li>
 <li><code>RELAY_PORT</code> should be set to <a href="https://support.google.com/a/answer/2956491">one of the supported Gmail SMTP ports</a> (<em>eg: 587 for STARTTLS</em>).</li>
-<li><code>RELAY_USER</code> and <code>RELAY_PASSWORD</code> should be set to your <a href="https://myaccount.google.com/security?gar=1">Gmail Account ID</a>.</li>
+<li><code>RELAY_USER</code> and <code>RELAY_PASSWORD</code> should be set to your credentials for <a href="https://myaccount.google.com/security?gar=1">Gmail</a>.</li>
 </ul>
 <div class="highlight"><pre><span></span><code><span class="na">RELAY_HOST</span><span class="o">=</span><span class="s">smtp.gmail.com</span>
 <span class="na">RELAY_PORT</span><span class="o">=</span><span class="s">587</span>
 <span class="c1"># Alternative to RELAY_HOST + RELAY_PORT which is compatible with LDAP:</span>
 <span class="na">DEFAULT_RELAY_HOST</span><span class="o">=</span><span class="s">[smtp.gmail.com]:587</span>
 
-<span class="na">RELAY_USER</span><span class="o">=</span><span class="s">someone@gmail.com</span>
-<span class="na">RELAY_PASSWORD</span><span class="o">=</span><span class="s">xxx</span>
+<span class="na">RELAY_USER</span><span class="o">=</span><span class="s">username@gmail.com</span>
+<span class="na">RELAY_PASSWORD</span><span class="o">=</span><span class="s">secret</span>
 </code></pre></div>
 </div>
 <div class="admonition warning">
