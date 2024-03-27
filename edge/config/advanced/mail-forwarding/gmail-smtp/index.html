@@ -2085,7 +2085,7 @@ and also apply email security and advanced Gmail settings to outgoing messages.<
 <div class="admonition note">
 <p class="admonition-title">Verify the relay host is configured correctly</p>
 <p>To verify proper operation, send an email to some external account of yours and inspect the mail headers.
-You will also see the connection to GMAIL SMTP in the mail logs:</p>
+You will also see the connection to the Gmail relay host in the mail logs:</p>
 <div class="highlight"><pre><span></span><code><span class="go">postfix/smtp[910]: Trusted TLS connection established to smtp.gmail.com[64.233.188.109]:587:</span>
 <span class="go">  TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)</span>
 <span class="go">postfix/smtp[910]: 4BCB547D9D: to=&amp;lt;someone@gmail.com&amp;gt;, relay=smtp.gmail.com[64.233.188.109]:587,</span>
