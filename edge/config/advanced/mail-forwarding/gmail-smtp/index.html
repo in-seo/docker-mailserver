@@ -2057,11 +2057,16 @@
 <p>This page provides a guide for configuring DMS to use <a href="https://support.google.com/a/answer/2956491">GMAIL as an SMTP relay host</a>.</p>
 <div class="admonition example">
 <p class="admonition-title">Configuration via ENV</p>
-<p><a href="../relay-hosts/">Configure a relay host in DMS</a> to forward all your mail through:</p>
+<p><a href="../relay-hosts/">Configure a relay host in DMS</a>. This example shows how the related ENV settings map to the Gmail service config:</p>
 <ul>
-<li><code>RELAY_HOST</code> should be either <code>smtp.gmail.com</code> (<em>for a personal GMAIL account</em>) or <code>smtp-relay.gmail.com</code> (<em>when using Google Workspace</em>). For more information, view <a href="https://support.google.com/a/answer/176600">these docs for the two supported SMTP endpoints</a>.</li>
+<li><code>RELAY_HOST</code> should be configured as <a href="https://support.google.com/a/answer/176600">advised by Gmail</a>, there are two SMTP endpoints to choose:<ul>
+<li><code>smtp.gmail.com</code> (<em>for a personal Gmail account</em>)</li>
+<li><code>smtp-relay.gmail.com</code> (<em>when using Google Workspace</em>)</li>
+</ul>
+</li>
 <li><code>RELAY_PORT</code> should be set to <a href="https://support.google.com/a/answer/2956491">one of the supported Gmail SMTP ports</a> (<em>eg: 587 for STARTTLS</em>).</li>
-<li><code>RELAY_USER</code> and <code>RELAY_PASSWORD</code> should be set to your credentials for <a href="https://myaccount.google.com/security?gar=1">Gmail</a>.</li>
+<li><code>RELAY_USER</code> should be your gmail address (<code>user@gmail.com</code>).</li>
+<li><code>RELAY_PASSWORD</code> should be your <a href="https://support.google.com/accounts/answer/185833">App Password</a>, <strong>not</strong> your personal gmail account password.</li>
 </ul>
 <div class="highlight"><pre><span></span><code><span class="na">RELAY_HOST</span><span class="o">=</span><span class="s">smtp.gmail.com</span>
 <span class="na">RELAY_PORT</span><span class="o">=</span><span class="s">587</span>
@@ -2072,15 +2077,17 @@
 <span class="na">RELAY_PASSWORD</span><span class="o">=</span><span class="s">secret</span>
 </code></pre></div>
 </div>
-<div class="admonition warning">
-<p class="admonition-title">Process of providing RELAY_PASSWORD</p>
-<p>You should use your <a href="https://support.google.com/accounts/answer/185833">2-step verification app password</a>, <strong>not</strong> your gmail account password.
-<code>setup relay add-auth</code> is a better alternative, which manages the credentials via a config file.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<ul>
+<li>As per our main <a href="../relay-hosts/">relay host docs page</a>, you may prefer to configure your credentials via <code>setup relay add-auth</code> instead of the <code>RELAY_USER</code> + <code>RELAY_PASSWORD</code> ENV.</li>
+<li>If you configure for <code>smtp-relay.gmail.com</code>, the <code>DEFAULT_RELAY_HOST</code> ENV should be all you need as shown in the above example. Credentials can be optional when using Google Workspace (<code>smtp-relay.gmail.com</code>), which supports restricting connections to trusted IP addresses.</li>
+</ul>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Verify the relay host is configured correctly</p>
-<p>To verify proper operation, send an email to some external account of yours and inspect the mail headers.
-You will also see the connection to the Gmail relay host in the mail logs:</p>
+<p>To verify proper operation, send an email to an external account of yours and inspect the mail headers.</p>
+<p>You will also see the connection to the Gmail relay host (<code>smtp.gmail.com</code>) in the mail logs:</p>
 <div class="highlight"><pre><span></span><code><span class="go">postfix/smtp[910]: Trusted TLS connection established to smtp.gmail.com[64.233.188.109]:587:</span>
 <span class="go">  TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)</span>
 <span class="go">postfix/smtp[910]: 4BCB547D9D: to=&lt;username@gmail.com&gt;, relay=smtp.gmail.com[64.233.188.109]:587,</span>
